@@ -25,9 +25,9 @@ get_clean_subset <- function(){
   data = as_tibble(read.table(file = "data/household_power_consumption.txt",header = TRUE, sep = ";" ,
                               na.strings = "?", colClasses = c("character", "character", "numeric", 
                               "numeric", "numeric", "numeric", "numeric", "numeric", "numeric"))) %>%
-                              mutate(Date = as.Date(Date, "%d/%m/%Y")) %>% filter(Date == as.Date("2007-02-01")|
+                              mutate(Date = as.Date(Date, "%d-%m-%Y", Time = strptime(Time, "%H:%M:%S"))) %>% filter(Date == as.Date("2007-02-01")|
                               Date == as.Date("2007-02-02"))
-  write.csv(data, file = "data/hpc.csv")
+  write.csv(data, row.names = FALSE, file = "data/hpc.csv")
   return(data)
 }  
   
